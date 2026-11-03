@@ -126,7 +126,12 @@ function createProductCard(product) {
   link.textContent = "View on Amazon";
 
   details.append(boardTag, title, link);
-  card.append(image, details);
+  // The frame shows only the illustration area of the pin (see .product-art in styles.css).
+  const art = document.createElement("div");
+  art.className = "product-art";
+  art.append(image);
+
+  card.append(art, details);
   return card;
 }
 

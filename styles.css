@@ -173,13 +173,30 @@ h1 {
   box-shadow: var(--shadow);
 }
 
-.product-image {
-  display: block;
-  width: 100%;
-  height: auto; /* without this, the img height="1500" attribute is used as 1500px */
-  aspect-ratio: 2 / 3; /* same shape as the pin, so nothing is cut off */
-  object-fit: contain;
+/* Square window onto the pin's illustration.
+   Every pin (1000x1500) draws its illustration inside the square
+   x 160-840, y 575-1255 (680x680 px): below the longest subtitle text and
+   above the "See it on Amazon" pill. We enlarge the image so that square
+   fills the frame, then shift it left/up so only that part shows:
+     width = 1000 / 680 = 147.059%
+     left  = -160 / 680 = -23.5294%
+     top   = -575 / 680 = -84.5588%  (top % is relative to the frame's height,
+                                      which equals its width because it's square) */
+.product-art {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
   background: #eee5d9;
+}
+
+.product-image {
+  position: absolute;
+  top: -84.5588%;
+  left: -23.5294%;
+  display: block;
+  width: 147.059%;
+  max-width: none;
+  height: auto; /* without this, the img height="1500" attribute is used as 1500px */
 }
 
 .product-details {
