@@ -1,10 +1,18 @@
 const AMAZON_TAG = "visit0fb-20";
 const PIN_LOG_URL = "pins/log.csv";
 
-const boardSections = Array.from(document.querySelectorAll(".board-section[data-board]"));
-const productGridByBoard = new Map(
-  boardSections.map((section) => [section.dataset.board, section.querySelector(".product-grid")]),
+const productGrid = document.querySelector("#product-grid");
+const gridHeading = document.querySelector("#grid-heading");
+const filterButtons = Array.from(document.querySelectorAll(".filter-button"));
+
+// Short label for each board, taken from its button text (e.g. "Gift Ideas").
+const boardLabels = new Map(
+  filterButtons
+    .filter((button) => button.dataset.board)
+    .map((button) => [button.dataset.board, button.textContent.trim()]),
 );
+
+let allProducts = []; // filled once log.csv is loaded
 
 function parseCSV(csvText) {
   const text = csvText.replace(/^\uFEFF/, "");
@@ -101,6 +109,10 @@ function createProductCard(product) {
   const details = document.createElement("div");
   details.className = "product-details";
 
+  const boardTag = document.createElement("p");
+  boardTag.className = "product-board";
+  boardTag.textContent = boardLabels.get(product.board) ?? product.board;
+
   const title = document.createElement("h3");
   title.className = "product-title";
   title.textContent = product.title;
@@ -113,7 +125,7 @@ function createProductCard(product) {
   link.rel = "sponsored noopener noreferrer";
   link.textContent = "View on Amazon";
 
-  details.append(title, link);
+  details.append(boardTag, title, link);
   card.append(image, details);
   return card;
 }
@@ -125,36 +137,56 @@ function showMessage(grid, message, className) {
   grid.replaceChildren(paragraph);
 }
 
-function renderProducts(products) {
-  // Warn about rows whose board name doesn't match any section on the page.
-  for (const product of products) {
-    if (!productGridByBoard.has(product.board)) {
-      console.warn(`Unknown board "${product.board}" for "${product.title}". Check pins/log.csv.`);
-    }
+// Show the products of one board ("" means all boards) and mark its button as active.
+function showBoard(board) {
+  for (const button of filterButtons) {
+    button.setAttribute("aria-pressed", String(button.dataset.board === board));
   }
+  gridHeading.textContent = board || "All finds";
 
-  for (const [board, grid] of productGridByBoard) {
-    const boardProducts = products.filter((product) => product.board === board);
-    if (boardProducts.length === 0) {
-      showMessage(grid, "No finds here just yet. Check back soon.", "empty-message");
-      continue;
-    }
-
-    grid.replaceChildren(...boardProducts.map(createProductCard));
+  const visible = board ? allProducts.filter((product) => product.board === board) : allProducts;
+  if (visible.length === 0) {
+    showMessage(productGrid, "No finds here just yet. Check back soon.", "empty-message");
+    return;
   }
+  productGrid.replaceChildren(...visible.map(createProductCard));
 }
+
+// Pick the board from the address bar, e.g. ".../#gift-ideas". Unknown or empty -> all.
+function boardFromAddress() {
+  const slug = decodeURIComponent(location.hash.slice(1));
+  const button = filterButtons.find((candidate) => candidate.dataset.slug && candidate.dataset.slug === slug);
+  return button ? button.dataset.board : "";
+}
+
+for (const button of filterButtons) {
+  button.addEventListener("click", () => {
+    const slug = button.dataset.slug;
+    // Update the address without jumping the page, so the filtered view can be shared.
+    history.replaceState(null, "", slug ? `#${slug}` : location.pathname + location.search);
+    showBoard(button.dataset.board);
+  });
+}
+window.addEventListener("hashchange", () => showBoard(boardFromAddress()));
 
 async function loadProducts() {
   try {
     // "no-cache" makes the browser check for a fresh log.csv, so new pins show up right away.
     const response = await fetch(PIN_LOG_URL, { cache: "no-cache" });
     if (!response.ok) throw new Error(`Could not load the product log (${response.status}).`);
-    renderProducts(readProducts(await response.text()));
+    allProducts = readProducts(await response.text());
+
+    // Warn about rows whose board name doesn't match any filter button.
+    for (const product of allProducts) {
+      if (!boardLabels.has(product.board)) {
+        console.warn(`Unknown board "${product.board}" for "${product.title}". Check pins/log.csv.`);
+      }
+    }
+
+    showBoard(boardFromAddress());
   } catch (error) {
     console.error("Could not load products:", error);
-    for (const grid of productGridByBoard.values()) {
-      showMessage(grid, "Products could not be loaded. Please try again later.", "error-message");
-    }
+    showMessage(productGrid, "Products could not be loaded. Please try again later.", "error-message");
   }
 }
 

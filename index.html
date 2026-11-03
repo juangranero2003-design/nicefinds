@@ -21,44 +21,26 @@
       <p class="intro-copy">A growing collection of practical finds for your home, kitchen, desk, and the people you love.</p>
     </div>
 
-    <nav class="board-nav" aria-label="Browse product categories">
-      <a href="#gift-ideas">Gift Ideas</a>
-      <a href="#home-organization">Home Organization</a>
-      <a href="#kitchen-gadgets">Kitchen Gadgets</a>
-      <a href="#desk-setup">Desk Setup</a>
-      <a href="#mixer-accessories">Mixer Accessories</a>
+    <!-- Filter buttons: data-board must match the "board" column in pins/log.csv exactly.
+         data-slug is the #name used in the address bar (e.g. .../nicefinds/#gift-ideas). -->
+    <nav class="board-filters" aria-label="Filter products by category">
+      <button type="button" class="filter-button" data-board="" data-slug="">All</button>
+      <button type="button" class="filter-button" data-board="Gift Ideas Under $50" data-slug="gift-ideas">Gift Ideas</button>
+      <button type="button" class="filter-button" data-board="Home Organization Finds" data-slug="home-organization">Home Organization</button>
+      <button type="button" class="filter-button" data-board="Kitchen Gadgets Worth Buying" data-slug="kitchen-gadgets">Kitchen Gadgets</button>
+      <button type="button" class="filter-button" data-board="Cozy Desk Setup &amp; Home Office" data-slug="desk-setup">Desk Setup</button>
+      <button type="button" class="filter-button" data-board="Stand Mixer Carts &amp; Accessories" data-slug="mixer-accessories">Mixer Accessories</button>
     </nav>
 
     <noscript>
       <p class="error-message">Please enable JavaScript to see the product list.</p>
     </noscript>
 
-    <div class="board-list">
-      <section class="board-section" id="gift-ideas" data-board="Gift Ideas Under $50">
-        <h2>Gift Ideas Under $50</h2>
-        <div class="product-grid" aria-live="polite"></div>
-      </section>
-
-      <section class="board-section" id="home-organization" data-board="Home Organization Finds">
-        <h2>Home Organization Finds</h2>
-        <div class="product-grid" aria-live="polite"></div>
-      </section>
-
-      <section class="board-section" id="kitchen-gadgets" data-board="Kitchen Gadgets Worth Buying">
-        <h2>Kitchen Gadgets Worth Buying</h2>
-        <div class="product-grid" aria-live="polite"></div>
-      </section>
-
-      <section class="board-section" id="desk-setup" data-board="Cozy Desk Setup &amp; Home Office">
-        <h2>Cozy Desk Setup &amp; Home Office</h2>
-        <div class="product-grid" aria-live="polite"></div>
-      </section>
-
-      <section class="board-section" id="mixer-accessories" data-board="Stand Mixer Carts &amp; Accessories">
-        <h2>Stand Mixer Carts &amp; Accessories</h2>
-        <div class="product-grid" aria-live="polite"></div>
-      </section>
-    </div>
+    <!-- One grid for every product. script.js fills it and updates the heading. -->
+    <section class="products" aria-labelledby="grid-heading">
+      <h2 id="grid-heading" class="grid-heading">All finds</h2>
+      <div id="product-grid" class="product-grid" aria-live="polite"></div>
+    </section>
   </main>
 
   <footer class="site-footer">
