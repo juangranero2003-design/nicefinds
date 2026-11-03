@@ -155,6 +155,7 @@ h1 {
 .product-image {
   display: block;
   width: 100%;
+  height: auto; /* without this, the img height="1500" attribute is used as 1500px */
   aspect-ratio: 2 / 3;
   object-fit: cover;
   background: #eee5d9;
@@ -246,5 +247,11 @@ h1 {
 
   .product-title {
     font-size: 1rem;
+  }
+}
+
+@media (min-width: 1000px) {
+  .product-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
