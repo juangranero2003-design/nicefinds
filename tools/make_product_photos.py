@@ -57,8 +57,10 @@ def generate(prompt, account, token, ref):
     files = {}
     if ref:
         files["input_image_0"] = ref
-        prompt = ("Create a new photo with exactly the same visual style as image 0 "
-                  "(lighting, color palette, mood, camera look), but with this subject: " + prompt)
+        prompt = ("Image 0 is ONLY a reference for photographic style: soft window lighting, "
+                  "muted cream and sage green color grading, warm wood tones, gentle contrast. "
+                  "Do NOT copy any object, furniture, appliance, room or composition from image 0. "
+                  "Create a completely new scene showing only this subject: " + prompt)
     body, ctype = multipart({"prompt": prompt, "width": 1024, "height": 1024}, files)
     req = urllib.request.Request(url, data=body, method="POST", headers={
         "Authorization": f"Bearer {token}", "Content-Type": ctype})
