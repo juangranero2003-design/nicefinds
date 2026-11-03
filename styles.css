@@ -156,8 +156,11 @@ h1 {
   display: block;
   width: 100%;
   height: auto; /* without this, the img height="1500" attribute is used as 1500px */
-  aspect-ratio: 2 / 3;
+  /* Show the top 5:6 of each 2:3 pin: headline + illustration, without the
+     pin's built-in "See it on Amazon" pill (the card has a real button). */
+  aspect-ratio: 5 / 6;
   object-fit: cover;
+  object-position: top;
   background: #eee5d9;
 }
 
