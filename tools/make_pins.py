@@ -24,6 +24,21 @@ MITT = """<svg viewBox="0 0 320 320" width="400"><g stroke="{ink}" stroke-width=
 <g fill="{c}"><circle cx="125" cy="130" r="9"/><circle cx="160" cy="170" r="9"/><circle cx="125" cy="210" r="9"/><circle cx="165" cy="105" r="9"/></g>
 <g fill="{c}" stroke="{ink}" stroke-width="6"><path d="M265 60 l10 22 24 3 -18 16 5 24 -21 -12 -21 12 5 -24 -18 -16 24 -3z"/></g></svg>"""
 
+BLANKET = """<svg viewBox="0 0 320 320" width="430"><g stroke="{ink}" stroke-width="10" stroke-linejoin="round" stroke-linecap="round">
+<path d="M40 90 Q40 60 70 60 L250 60 Q280 60 280 90 L280 230 Q280 260 250 260 L70 260 Q40 260 40 230 Z" fill="{a}"/>
+<path d="M40 200 Q160 150 280 200 L280 230 Q280 260 250 260 L70 260 Q40 260 40 230 Z" fill="{b}"/>
+<line x1="90" y1="75" x2="90" y2="175" stroke="{c}"/><line x1="160" y1="75" x2="160" y2="165" stroke="{c}"/><line x1="230" y1="75" x2="230" y2="175" stroke="{c}"/>
+<path d="M280 150 Q305 150 305 175 L305 290" fill="none"/><rect x="290" y="285" width="30" height="20" rx="4" fill="{ink}"/></g>
+<g fill="{c}" stroke="{ink}" stroke-width="5"><path d="M40 30 q10 -18 20 0 q10 18 20 0" fill="none"/><path d="M130 30 q10 -18 20 0 q10 18 20 0" fill="none"/></g></svg>"""
+
+DESK = """<svg viewBox="0 0 320 320" width="430"><g stroke="{ink}" stroke-width="10" stroke-linejoin="round" stroke-linecap="round">
+<rect x="30" y="150" width="260" height="130" rx="12" fill="{a}"/>
+<rect x="45" y="200" width="230" height="65" rx="8" fill="{b}"/><line x1="135" y1="232" x2="185" y2="232"/>
+<rect x="45" y="60" width="70" height="90" rx="8" fill="{b}"/><rect x="200" y="95" width="75" height="55" rx="8" fill="{b}"/></g>
+<g stroke="{ink}" stroke-width="8" stroke-linecap="round"><line x1="65" y1="60" x2="58" y2="20"/><line x1="82" y1="60" x2="88" y2="15"/><line x1="98" y1="60" x2="108" y2="28"/></g>
+<g fill="{c}" stroke="{ink}" stroke-width="6"><rect x="128" y="85" width="58" height="65" rx="6"/></g>
+<g fill="{ink}"><circle cx="58" cy="18" r="7"/><circle cx="108" cy="26" r="7"/></g></svg>"""
+
 import json, sys
 STYLES = {
   "terracotta": dict(bg="#F3E9DC", a="#C8553D", b="#F2D0A4", c="#2D6A4F", ink="#2B2118", accent="#C8553D"),
@@ -31,8 +46,8 @@ STYLES = {
   "lavender": dict(bg="#EEEAF6", a="#B8A9E3", b="#FFFFFF", c="#F28482", ink="#2A2440", accent="#6C5CE7"),
   "rose": dict(bg="#FBE8EA", a="#E8A0A8", b="#FFFFFF", c="#B5485A", ink="#3A1F25", accent="#B5485A"),
 }
-ARTS = {"cart": CART, "mixer": MIXER, "mitt": MITT}
-# pins.json: [{"file","art":"cart|mixer|mitt","style":"terracotta|mint|lavender|rose","kicker","title","sub"}]
+ARTS = {"cart": CART, "mixer": MIXER, "mitt": MITT, "blanket": BLANKET, "desk": DESK}
+# pins.json: [{"file","art":"cart|mixer|mitt|blanket|desk","style":"terracotta|mint|lavender|rose","kicker","title","sub"}]
 PINS = []
 for p in json.load(open(sys.argv[1])):
     d = dict(STYLES[p["style"]]); d.update(p); d["art"] = ARTS[p["art"]]; PINS.append(d)
