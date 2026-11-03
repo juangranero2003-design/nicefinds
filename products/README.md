@@ -1,0 +1,29 @@
+# Product photos
+
+Optional lifestyle images for the website. If `products/<file>.jpg` exists,
+the site shows it (with an "Illustrative image" label). If not, it shows the
+illustration from the Pinterest pin in `pins/<file>.png`.
+
+- `<file>` is the `file` column of `pins/log.csv` (e.g. `mixer-cart`).
+- Square (1:1), JPG, about 1000x1000 px, ideally under 200 KB.
+- No Amazon photos, no brand logos, no text in the image.
+- Show the product in a scene (lifestyle), not as an exact product shot:
+  an AI image is not the real product, so it must not mislead buyers.
+
+## Style (add to the end of every prompt)
+
+> Photorealistic lifestyle photo, square 1:1 format, warm natural window light,
+> soft neutral palette (cream, warm wood, sage green), shallow depth of field,
+> cozy American home, no text, no logos, no brand names, no people's faces.
+
+## Prompts
+
+| File | Prompt (then add the style above) |
+|---|---|
+| `mixer-cart.jpg` | A stand mixer sitting on top of a small 3-tier rolling kitchen cart, mixing bowls and attachments neatly stored on the lower shelves, cart parked beside a kitchen counter. |
+| `mixer-slider.jpg` | A heavy stand mixer resting on a slim slider mat on a kitchen countertop, pulled forward from under the upper cabinets, flour and a mixing bowl nearby. |
+| `appliance-cart.jpg` | A slim rolling cart in a small kitchen with a microwave on top and an air fryer and pantry items on the shelves below, tucked into a narrow corner. |
+| `baker-gift-mitts.jpg` | A pair of mini pink oven mitts used as a gift, tied with a ribbon next to a plate of freshly baked cookies on a kitchen counter, festive and sweet. |
+| `flex-edge-beater.jpg` | Close-up of a stand mixer bowl with a beater that has a flexible silicone edge scraping the side of the bowl while mixing cake batter. |
+| `heated-throw-gift.jpg` | A soft ribbed flannel heated throw blanket draped over a sofa arm, a small controller with a cord beside it, warm evening living room with a mug of tea. |
+| `mesh-desk-organizer.jpg` | A black mesh desk organizer with several compartments and a small drawer, holding pens, sticky notes and paper clips on a tidy wooden home-office desk. |

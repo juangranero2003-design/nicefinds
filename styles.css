@@ -199,6 +199,27 @@ h1 {
   height: auto; /* without this, the img height="1500" attribute is used as 1500px */
 }
 
+/* A lifestyle photo from products/ fills the whole square. */
+.product-photo {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.art-caption {
+  position: absolute;
+  right: 0.4rem;
+  bottom: 0.4rem;
+  padding: 0.1rem 0.4rem;
+  border-radius: 3px;
+  background: rgb(0 0 0 / 55%);
+  color: #fff;
+  font-size: 0.65rem;
+}
+
 .product-details {
   display: flex;
   flex-direction: column;

@@ -93,18 +93,44 @@ function createProductCard(product) {
   const card = document.createElement("article");
   card.className = "product-card";
 
+  // Square frame for the product image (see .product-art in styles.css).
+  const art = document.createElement("div");
+  art.className = "product-art";
+
+  // 1st choice: a lifestyle photo in products/<file>.jpg
+  // 2nd choice: the illustration area of the Pinterest pin in pins/<file>.png
+  const fileName = encodeURIComponent(product.file);
   const image = document.createElement("img");
-  image.className = "product-image";
-  image.src = `pins/${encodeURIComponent(product.file)}.png`;
+  image.className = "product-photo";
+  image.src = `products/${fileName}.jpg`;
   image.alt = product.title;
   image.width = 1000;
-  image.height = 1500;
+  image.height = 1000;
   image.loading = "lazy";
-  // If the pin image is missing, hide the card instead of showing a broken image.
+
+  image.addEventListener("load", () => {
+    if (image.className !== "product-photo") return;
+    // AI-made lifestyle images are labeled so nobody mistakes them for the exact product.
+    const caption = document.createElement("span");
+    caption.className = "art-caption";
+    caption.textContent = "Illustrative image";
+    art.append(caption);
+  });
+
   image.addEventListener("error", () => {
+    if (image.className === "product-photo") {
+      // No photo yet: fall back to the pin illustration.
+      image.className = "product-image";
+      image.width = 1000;
+      image.height = 1500;
+      image.src = `pins/${fileName}.png`;
+      return;
+    }
+    // The pin is missing too: hide the card instead of showing a broken image.
     console.warn(`Missing pin image for "${product.title}": ${image.src}`);
     card.remove();
   });
+  art.append(image);
 
   const details = document.createElement("div");
   details.className = "product-details";
@@ -126,11 +152,6 @@ function createProductCard(product) {
   link.textContent = "View on Amazon";
 
   details.append(boardTag, title, link);
-  // The frame shows only the illustration area of the pin (see .product-art in styles.css).
-  const art = document.createElement("div");
-  art.className = "product-art";
-  art.append(image);
-
   card.append(art, details);
   return card;
 }
