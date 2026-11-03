@@ -1,0 +1,51 @@
+# Genera las fotos de producto que falten en products/ con Cloudflare Workers AI.
+# Corre sola cuando cambia pins/log.csv (la tarea diaria agrega productos),
+# todos los días como respaldo, y a mano desde la pestaña Actions.
+name: Product photos
+
+on:
+  push:
+    branches: [main]
+    paths: [pins/log.csv, products/prompts.csv]
+  schedule:
+    - cron: "30 13 * * *"   # 10:30 en Uruguay
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: product-photos
+  cancel-in-progress: false
+
+jobs:
+  photos:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Instalar Pillow
+        run: pip install pillow
+
+      - name: Generar fotos que falten
+        env:
+          CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
+          CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+        run: python tools/make_product_photos.py
+
+      - name: Subir las fotos nuevas
+        run: |
+          git add products/*.jpg
+          if git diff --cached --quiet; then
+            echo "No hay fotos nuevas."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Add product photos (Cloudflare Workers AI)"
+          git pull --rebase origin main
+          git push
