@@ -3,7 +3,7 @@
 Lo corre la GitHub Action .github/workflows/product-photos.yml.
 Para cada producto de pins/log.csv que todavía no tiene foto:
   1. Busca su prompt en products/prompts.csv (si no hay, arma uno con el título).
-  2. Le agrega el estilo común y llama al modelo FLUX.2 klein de Cloudflare,
+  2. Le agrega el estilo común y llama al modelo FLUX.2 klein 9B de Cloudflare,
      pasándole una foto de referencia (products/mixer-cart.jpg, hecha con Canva)
      para que copie su luz, colores y ambiente.
   3. Guarda la imagen como JPG cuadrado de 1000x1000 (< 200 KB).
@@ -16,12 +16,13 @@ import base64, csv, io, json, os, pathlib, sys, urllib.request, uuid
 from PIL import Image
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-MODEL = "@cf/black-forest-labs/flux-2-klein-4b"
+MODEL = "@cf/black-forest-labs/flux-2-klein-9b"
 STYLE_REFERENCE = ROOT / "products" / "mixer-cart.jpg"  # foto de Canva usada como guía de estilo
-STYLE = ("Photorealistic lifestyle photo, square 1:1 format, warm natural window light, "
-         "soft neutral palette (cream, warm wood, sage green), shallow depth of field, "
-         "cozy American home, no text, no logos, no brand names, no people's faces.")
-MAX_PER_RUN = 10  # tope de seguridad para no gastar de más
+STYLE = ("Candid photo taken with a smartphone in a real, lived-in American home, natural daylight, "
+         "true-to-life colors, realistic textures with small everyday imperfections, slightly casual framing, "
+         "a few ordinary items around, no studio look, no CGI, no glossy render, no text, no logos, "
+         "no brand names, no people's faces. Square 1:1 photo.")
+MAX_PER_RUN = 6  # tope por ejecución (cada foto gasta ~1.400 de las 10.000 neuronas diarias gratis)
 
 
 def read_csv(path):
