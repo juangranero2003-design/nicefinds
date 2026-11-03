@@ -1,4 +1,4 @@
-# Genera las fotos de producto que falten en products/ con Cloudflare Workers AI.
+# Genera las fotos de producto que falten en products/pending/ (para revisar) con Cloudflare Workers AI.
 # Corre sola cuando cambia pins/log.csv (la tarea diaria agrega productos),
 # todos los días como respaldo, y a mano desde la pestaña Actions.
 name: Product photos
@@ -39,13 +39,13 @@ jobs:
 
       - name: Subir las fotos nuevas
         run: |
-          git add products/*.jpg
+          git add -A products/pending/ || true
           if git diff --cached --quiet; then
             echo "No hay fotos nuevas."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -m "Add product photos (Cloudflare Workers AI)"
+          git commit -m "Add product photos for review (Cloudflare Workers AI)"
           git pull --rebase origin main
           git push

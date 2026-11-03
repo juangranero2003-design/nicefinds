@@ -6,7 +6,9 @@ Para cada producto de pins/log.csv que todavía no tiene foto:
   2. Le agrega el estilo común y llama al modelo FLUX.2 klein 9B de Cloudflare,
      pasándole una foto de referencia (products/mixer-cart.jpg, hecha con Canva)
      para que copie su luz, colores y ambiente.
-  3. Guarda la imagen como JPG cuadrado de 1000x1000 (< 200 KB).
+  3. Guarda la imagen como JPG cuadrado de 1000x1000 (< 200 KB) en
+     products/pending/. La web NO muestra esa carpeta: la tarea diaria revisa
+     cada foto y, solo si se parece al producto real, la mueve a products/.
 
 Necesita dos variables de entorno (secretos de GitHub):
   CF_ACCOUNT_ID  y  CF_API_TOKEN
@@ -96,9 +98,12 @@ def main():
     prompts = {r["file"]: r["prompt"] for r in read_csv(ROOT / "products/prompts.csv")}
     ref = reference_bytes()
     done = 0
+    pending_dir = ROOT / "products" / "pending"
+    pending_dir.mkdir(exist_ok=True)
     for row in read_csv(ROOT / "pins/log.csv"):
-        dest = ROOT / "products" / f"{row['file']}.jpg"
-        if dest.exists():
+        published = ROOT / "products" / f"{row['file']}.jpg"
+        dest = pending_dir / f"{row['file']}.jpg"
+        if published.exists() or dest.exists():  # ya publicada o esperando revisión
             continue
         if done >= MAX_PER_RUN:
             print("Tope por ejecución alcanzado; el resto queda para la próxima.")
