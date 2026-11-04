@@ -39,6 +39,28 @@ DESK = """<svg viewBox="0 0 320 320" width="430"><g stroke="{ink}" stroke-width=
 <g fill="{c}" stroke="{ink}" stroke-width="6"><rect x="128" y="85" width="58" height="65" rx="6"/></g>
 <g fill="{ink}"><circle cx="58" cy="18" r="7"/><circle cx="108" cy="26" r="7"/></g></svg>"""
 
+THERMO = """<svg viewBox="0 0 320 320" width="430"><g stroke="{ink}" stroke-width="10" stroke-linejoin="round" stroke-linecap="round">
+<ellipse cx="160" cy="250" rx="120" ry="40" fill="{b}"/><path d="M70 245 Q90 180 160 175 Q230 180 250 245 Z" fill="{c}"/>
+<line x1="150" y1="200" x2="120" y2="110" stroke-width="8"/>
+<rect x="70" y="30" width="110" height="90" rx="22" fill="{a}" transform="rotate(-18 125 75)"/>
+<rect x="88" y="48" width="66" height="34" rx="8" fill="{b}" transform="rotate(-18 125 75)"/></g>
+<g fill="none" stroke="{ink}" stroke-width="6" stroke-linecap="round"><path d="M210 60 q12 -14 0 -28"/><path d="M235 70 q12 -14 0 -28"/></g></svg>"""
+
+SPINNER = """<svg viewBox="0 0 320 320" width="430"><g stroke="{ink}" stroke-width="10" stroke-linejoin="round" stroke-linecap="round">
+<path d="M40 130 L280 130 L255 270 Q250 290 230 290 L90 290 Q70 290 65 270 Z" fill="{b}"/>
+<path d="M65 150 L255 150 L238 255 L82 255 Z" fill="{c}"/>
+<line x1="110" y1="160" x2="115" y2="245"/><line x1="160" y1="160" x2="160" y2="245"/><line x1="210" y1="160" x2="205" y2="245"/>
+<ellipse cx="160" cy="125" rx="130" ry="26" fill="{a}"/>
+<rect x="135" y="60" width="50" height="60" rx="14" fill="{ink}"/><circle cx="235" cy="118" r="12" fill="{ink}"/></g>
+<g fill="{c}" stroke="{ink}" stroke-width="6"><path d="M60 70 q30 -40 60 0 q-30 25 -60 0z"/></g></svg>"""
+
+COVER = """<svg viewBox="0 0 320 320" width="430"><g stroke="{ink}" stroke-width="10" stroke-linejoin="round" stroke-linecap="round">
+<path d="M70 280 L70 120 Q70 50 150 50 L230 50 Q275 50 275 100 L275 280 Z" fill="{a}"/>
+<g stroke="{b}" stroke-width="5" opacity=".8"><line x1="80" y1="100" x2="265" y2="100"/><line x1="75" y1="150" x2="270" y2="150"/><line x1="72" y1="200" x2="270" y2="200"/><line x1="72" y1="250" x2="270" y2="250"/></g>
+<rect x="110" y="170" width="90" height="70" rx="10" fill="{c}"/>
+<rect x="40" y="276" width="260" height="22" rx="8" fill="{b}"/></g>
+<g fill="{c}" stroke="{ink}" stroke-width="6"><path d="M285 25 l7 15 16 2 -12 11 3 16 -14 -8 -14 8 3 -16 -12 -11 16 -2z"/></g></svg>"""
+
 import json, sys
 STYLES = {
   "terracotta": dict(bg="#F3E9DC", a="#C8553D", b="#F2D0A4", c="#2D6A4F", ink="#2B2118", accent="#C8553D"),
@@ -46,8 +68,8 @@ STYLES = {
   "lavender": dict(bg="#EEEAF6", a="#B8A9E3", b="#FFFFFF", c="#F28482", ink="#2A2440", accent="#6C5CE7"),
   "rose": dict(bg="#FBE8EA", a="#E8A0A8", b="#FFFFFF", c="#B5485A", ink="#3A1F25", accent="#B5485A"),
 }
-ARTS = {"cart": CART, "mixer": MIXER, "mitt": MITT, "blanket": BLANKET, "desk": DESK}
-# pins.json: [{"file","art":"cart|mixer|mitt|blanket|desk","style":"terracotta|mint|lavender|rose","kicker","title","sub"}]
+ARTS = {"cart": CART, "mixer": MIXER, "mitt": MITT, "blanket": BLANKET, "desk": DESK, "thermo": THERMO, "spinner": SPINNER, "cover": COVER}
+# pins.json: [{"file","art":"cart|mixer|mitt|blanket|desk|thermo|spinner|cover","style":"terracotta|mint|lavender|rose","kicker","title","sub"}]
 PINS = []
 for p in json.load(open(sys.argv[1])):
     d = dict(STYLES[p["style"]]); d.update(p); d["art"] = ARTS[p["art"]]; PINS.append(d)
