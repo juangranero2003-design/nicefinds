@@ -61,6 +61,46 @@ COVER = """<svg viewBox="0 0 320 320" width="430"><g stroke="{ink}" stroke-width
 <rect x="40" y="276" width="260" height="22" rx="8" fill="{b}"/></g>
 <g fill="{c}" stroke="{ink}" stroke-width="6"><path d="M285 25 l7 15 16 2 -12 11 3 16 -14 -8 -14 8 3 -16 -12 -11 16 -2z"/></g></svg>"""
 
+SHIELD = """<svg viewBox="0 0 320 320" width="430"><g stroke="{ink}" stroke-width="10" stroke-linejoin="round" stroke-linecap="round">
+<path d="M50 140 L270 140 Q262 270 160 285 Q58 270 50 140 Z" fill="{b}"/>
+<ellipse cx="160" cy="140" rx="125" ry="30" fill="{a}" fill-opacity=".55"/>
+<ellipse cx="160" cy="140" rx="70" ry="14" fill="{bg}"/>
+<path d="M215 125 L260 45 L305 70 L270 140 Z" fill="{a}" fill-opacity=".55"/>
+<line x1="160" y1="20" x2="160" y2="135"/></g>
+<g fill="{c}" stroke="{ink}" stroke-width="6"><circle cx="282" cy="30" r="9"/><circle cx="262" cy="18" r="6"/><circle cx="300" cy="44" r="6"/></g></svg>"""
+
+FROTHER = """<svg viewBox="0 0 320 320" width="430"><g stroke="{ink}" stroke-width="10" stroke-linejoin="round" stroke-linecap="round">
+<path d="M60 160 L220 160 L205 290 L75 290 Z" fill="{b}"/>
+<path d="M220 185 Q270 185 265 225 Q260 260 212 258" fill="none"/>
+<path d="M66 175 Q140 150 214 175 L212 195 L68 195 Z" fill="{bg}"/>
+<rect x="125" y="20" width="40" height="95" rx="18" fill="{a}"/>
+<line x1="145" y1="115" x2="145" y2="200" stroke-width="7"/>
+<circle cx="145" cy="203" r="16" fill="none" stroke-width="6"/></g>
+<g fill="{c}" stroke="{ink}" stroke-width="5"><circle cx="145" cy="50" r="8"/></g></svg>"""
+
+SINKRACK = """<svg viewBox="0 0 320 320" width="430"><g stroke="{ink}" stroke-width="10" stroke-linejoin="round" stroke-linecap="round">
+<path d="M30 40 L290 40 L290 300 L30 300 Z" fill="{b}"/>
+<path d="M140 40 L140 80 Q140 100 160 100 Q180 100 180 80 L180 40" fill="none"/>
+<rect x="50" y="130" width="220" height="60" rx="8" fill="{a}"/><rect x="50" y="220" width="220" height="60" rx="8" fill="{a}"/>
+<line x1="50" y1="130" x2="50" y2="285"/><line x1="270" y1="130" x2="270" y2="285"/></g>
+<g fill="{c}" stroke="{ink}" stroke-width="6"><rect x="75" y="98" width="34" height="48" rx="8"/><rect x="125" y="110" width="28" height="36" rx="6"/><rect x="200" y="190" width="40" height="45" rx="8"/><rect x="80" y="195" width="30" height="40" rx="6"/></g></svg>"""
+
+MUGWARM = """<svg viewBox="0 0 320 320" width="430"><g stroke="{ink}" stroke-width="10" stroke-linejoin="round" stroke-linecap="round">
+<rect x="45" y="235" width="230" height="50" rx="16" fill="{a}"/>
+<ellipse cx="160" cy="238" rx="80" ry="10" fill="{b}"/>
+<path d="M100 110 L220 110 L212 232 L108 232 Z" fill="{b}"/>
+<path d="M218 135 Q262 135 258 170 Q255 205 212 200" fill="none"/></g>
+<g fill="{c}" stroke="{ink}" stroke-width="6"><circle cx="245" cy="260" r="9"/></g>
+<g fill="none" stroke="{ink}" stroke-width="7" stroke-linecap="round"><path d="M135 90 q14 -20 0 -40 q-14 -20 0 -40"/><path d="M185 90 q14 -20 0 -40 q-14 -20 0 -40"/></g></svg>"""
+
+LIDS = """<svg viewBox="0 0 320 320" width="430"><g stroke="{ink}" stroke-width="10" stroke-linejoin="round" stroke-linecap="round">
+<path d="M30 200 L170 200 Q165 285 100 290 Q35 285 30 200 Z" fill="{b}"/>
+<path d="M28 200 Q100 170 172 200 Q100 215 28 200 Z" fill="{a}" fill-opacity=".8"/>
+<path d="M190 225 L300 225 Q296 290 245 292 Q194 290 190 225 Z" fill="{b}"/>
+<path d="M188 225 Q245 202 302 225 Q245 238 188 225 Z" fill="{c}" fill-opacity=".8"/></g>
+<g stroke="{ink}" stroke-width="7"><circle cx="120" cy="80" r="55" fill="{a}" fill-opacity=".7"/><circle cx="225" cy="105" r="42" fill="{c}" fill-opacity=".7"/><circle cx="180" cy="40" r="26" fill="{a}" fill-opacity=".45"/></g>
+<g fill="none" stroke="{ink}" stroke-width="5"><circle cx="120" cy="80" r="30"/><circle cx="225" cy="105" r="22"/></g></svg>"""
+
 import json, sys
 STYLES = {
   "terracotta": dict(bg="#F3E9DC", a="#C8553D", b="#F2D0A4", c="#2D6A4F", ink="#2B2118", accent="#C8553D"),
@@ -68,7 +108,8 @@ STYLES = {
   "lavender": dict(bg="#EEEAF6", a="#B8A9E3", b="#FFFFFF", c="#F28482", ink="#2A2440", accent="#6C5CE7"),
   "rose": dict(bg="#FBE8EA", a="#E8A0A8", b="#FFFFFF", c="#B5485A", ink="#3A1F25", accent="#B5485A"),
 }
-ARTS = {"cart": CART, "mixer": MIXER, "mitt": MITT, "blanket": BLANKET, "desk": DESK, "thermo": THERMO, "spinner": SPINNER, "cover": COVER}
+ARTS = {"cart": CART, "mixer": MIXER, "mitt": MITT, "blanket": BLANKET, "desk": DESK, "thermo": THERMO, "spinner": SPINNER, "cover": COVER,
+        "shield": SHIELD, "frother": FROTHER, "sinkrack": SINKRACK, "mugwarm": MUGWARM, "lids": LIDS}
 # pins.json: [{"file","art":"cart|mixer|mitt|blanket|desk|thermo|spinner|cover","style":"terracotta|mint|lavender|rose","kicker","title","sub"}]
 PINS = []
 for p in json.load(open(sys.argv[1])):
