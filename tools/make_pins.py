@@ -72,7 +72,9 @@ ARTS = {"cart": CART, "mixer": MIXER, "mitt": MITT, "blanket": BLANKET, "desk": 
 # pins.json: [{"file","art":"cart|mixer|mitt|blanket|desk|thermo|spinner|cover","style":"terracotta|mint|lavender|rose","kicker","title","sub"}]
 PINS = []
 for p in json.load(open(sys.argv[1])):
-    d = dict(STYLES[p["style"]]); d.update(p); d["art"] = ARTS[p["art"]]; PINS.append(d)
+    d = dict(STYLES[p["style"]]); d.update(p)
+    if "photo" not in d: d["art"] = ARTS[p["art"]]  # pines con foto no usan dibujo
+    PINS.append(d)
 
 TPL = """<!doctype html><html><head><meta charset="utf-8"><style>
 @font-face{{font-family:P;src:url(file:///usr/share/fonts/truetype/google-fonts/Poppins-Bold.ttf)}}
@@ -89,13 +91,35 @@ h1{{font-family:P;font-size:84px;line-height:1.05;margin:24px 0 28px}}
 <div class="art">{svg}</div><div class="cta">See it on Amazon &rarr;</div>
 <div class="f"><span>Nice Finds</span><span>Affiliate link &middot; I may earn from qualifying purchases</span></div></body></html>"""
 
+# Pin con FOTO de producto: {"file","photo":"products/<x>.jpg","style","kicker","title"} (sin "art" ni "sub").
+# La foto (cuadrada, aprobada) va arriba a sangre y abajo una franja con kicker, título y botón.
+PHOTO_TPL = """<!doctype html><html><head><meta charset="utf-8"><style>
+@font-face{{font-family:P;src:url(file:///usr/share/fonts/truetype/google-fonts/Poppins-Bold.ttf)}}
+@font-face{{font-family:I;src:url(file:///usr/share/fonts/opentype/inter/Inter-Medium.otf)}}
+*{{margin:0;box-sizing:border-box}} body{{width:1000px;height:1500px;background:{bg};font-family:I;color:{ink};overflow:hidden;display:flex;flex-direction:column}}
+.ph{{width:1000px;height:1000px;background:url('{photo_uri}') center/cover}}
+.band{{flex:1;display:flex;flex-direction:column;padding:38px 70px 30px}}
+.k{{font-family:P;letter-spacing:6px;font-size:26px;color:{accent}}}
+h1{{font-family:P;font-size:{tsize}px;line-height:1.08;margin:12px 0 auto}}
+.row{{display:flex;justify-content:space-between;align-items:center}}
+.cta{{background:{ink};color:{bg};font-family:P;font-size:30px;padding:18px 34px;border-radius:60px}}
+.f{{font-size:20px;opacity:.7;text-align:right;line-height:1.35}}
+</style></head><body><div class="ph"></div><div class="band"><div class="k">{kicker}</div><h1>{title}</h1>
+<div class="row"><div class="cta">See it on Amazon &rarr;</div><div class="f">Nice Finds &middot; Affiliate link<br>Illustrative image</div></div></div></body></html>"""
+
+
 async def main():
     async with async_playwright() as p:
         b = await p.chromium.launch(executable_path="/usr/bin/google-chrome")
         pg = await b.new_page(viewport={"width": 1000, "height": 1500})
         for d in PINS:
-            svg = d["art"].format(**d)
-            html = TPL.format(svg=svg, **d)
+            if "photo" in d:
+                d["photo_uri"] = (OUT.parent / d["photo"]).resolve().as_uri()
+                d["tsize"] = 64 if len(d["title"]) <= 34 else 54 if len(d["title"]) <= 52 else 46
+                html = PHOTO_TPL.format(**d)
+            else:
+                svg = d["art"].format(**d)
+                html = TPL.format(svg=svg, **d)
             import tempfile; f = pathlib.Path(tempfile.gettempdir()) / f"{d['file']}.html"; f.write_text(html)
             await pg.goto(f.as_uri()); await pg.wait_for_timeout(300)
             await pg.screenshot(path=str(OUT / f"{d['file']}.png"))
