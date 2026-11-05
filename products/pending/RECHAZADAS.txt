@@ -1,0 +1,6 @@
+pouring-shield.jpg y stretch-lids.jpg: rechazadas en el 3.er intento (2026-11-05).
+- pouring-shield: la canaleta (chute) sale deformada/duplicada en los 3 intentos; en los anteriores aparecía una bolsa con texto o la tapa cubría todo el bowl.
+- stretch-lids: el modelo dibuja tapas rígidas de táper apoyadas encima, no tapas de silicona finas estiradas sobre el borde; además frascos con etiqueta al fondo.
+Se dejan en esta carpeta (la web no la muestra) para que la Action no genere más intentos.
+Esperan la decisión de Juan: no volver a revisarlas ni borrarlas en la tarea diaria.
+Mientras tanto, esos productos solo están en Pinterest con su pin de dibujo.
