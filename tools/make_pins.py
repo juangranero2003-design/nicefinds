@@ -101,6 +101,36 @@ LIDS = """<svg viewBox="0 0 320 320" width="430"><g stroke="{ink}" stroke-width=
 <g stroke="{ink}" stroke-width="7"><circle cx="120" cy="80" r="55" fill="{a}" fill-opacity=".7"/><circle cx="225" cy="105" r="42" fill="{c}" fill-opacity=".7"/><circle cx="180" cy="40" r="26" fill="{a}" fill-opacity=".45"/></g>
 <g fill="none" stroke="{ink}" stroke-width="5"><circle cx="120" cy="80" r="30"/><circle cx="225" cy="105" r="22"/></g></svg>"""
 
+WINE = """<svg viewBox="0 0 320 320" width="430"><g stroke="{ink}" stroke-width="10" stroke-linejoin="round" stroke-linecap="round">
+<path d="M95 300 L95 170 Q95 135 115 120 L115 70 L145 70 L145 120 Q165 135 165 170 L165 300 Z" fill="{a}"/>
+<rect x="108" y="10" width="44" height="70" rx="14" fill="{ink}"/>
+<path d="M215 170 L275 170 Q278 225 245 235 Q212 225 215 170 Z" fill="{b}"/>
+<line x1="245" y1="235" x2="245" y2="290"/><line x1="220" y1="292" x2="270" y2="292"/>
+<path d="M219 195 Q245 188 271 195 Q270 222 245 230 Q220 222 219 195 Z" fill="{c}" stroke-width="6"/></g>
+<g fill="{c}" stroke="{ink}" stroke-width="6"><rect x="40" y="250" width="26" height="45" rx="8"/><circle cx="53" cy="243" r="11"/></g></svg>"""
+
+NECKLIGHT = """<svg viewBox="0 0 320 320" width="430"><g stroke="{ink}" stroke-width="10" stroke-linejoin="round" stroke-linecap="round">
+<rect x="40" y="215" width="240" height="75" rx="10" fill="{b}"/><line x1="160" y1="215" x2="160" y2="290"/>
+<path d="M90 60 Q160 10 230 60" fill="none" stroke-width="22"/>
+<path d="M90 60 Q70 110 105 150" fill="none" stroke-width="12"/><path d="M230 60 Q250 110 215 150" fill="none" stroke-width="12"/>
+<circle cx="108" cy="158" r="16" fill="{a}"/><circle cx="212" cy="158" r="16" fill="{a}"/></g>
+<g fill="{c}" opacity=".45"><path d="M95 172 L60 215 L150 215 L122 172 Z"/><path d="M198 172 L170 215 L260 215 L225 172 Z"/></g></svg>"""
+
+TURNTABLE = """<svg viewBox="0 0 320 320" width="430"><g stroke="{ink}" stroke-width="10" stroke-linejoin="round" stroke-linecap="round">
+<ellipse cx="160" cy="250" rx="135" ry="38" fill="{b}"/><path d="M25 235 L25 250 Q25 288 160 288 Q295 288 295 250 L295 235" fill="none"/>
+<ellipse cx="160" cy="235" rx="135" ry="38" fill="{a}"/>
+<rect x="75" y="130" width="40" height="95" rx="10" fill="{c}"/><rect x="140" y="150" width="40" height="80" rx="10" fill="{b}"/><rect x="205" y="120" width="40" height="105" rx="10" fill="{c}"/>
+<rect x="80" y="112" width="30" height="22" rx="5" fill="{ink}"/><rect x="210" y="102" width="30" height="22" rx="5" fill="{ink}"/></g>
+<g fill="none" stroke="{ink}" stroke-width="6" stroke-linecap="round"><path d="M40 170 Q30 130 60 100"/><path d="M52 92 l10 6 -2 -12"/></g></svg>"""
+
+SHREDDER = """<svg viewBox="0 0 320 320" width="430"><g stroke="{ink}" stroke-width="10" stroke-linejoin="round" stroke-linecap="round">
+<rect x="20" y="70" width="70" height="120" rx="14" fill="{a}"/>
+<rect x="90" y="105" width="150" height="55" rx="12" fill="{b}"/>
+<rect x="130" y="25" width="50" height="85" rx="8" fill="{b}"/><rect x="138" y="5" width="34" height="30" rx="6" fill="{c}"/>
+<circle cx="250" cy="132" r="36" fill="{b}"/><circle cx="250" cy="132" r="16" fill="{c}"/>
+<path d="M175 300 L195 225 L305 225 L320 300 Z" fill="{a}" fill-opacity=".5"/></g>
+<g fill="{c}" stroke="{ink}" stroke-width="5"><circle cx="240" cy="190" r="9"/><circle cx="262" cy="205" r="9"/><circle cx="248" cy="215" r="8"/></g></svg>"""
+
 import json, sys
 STYLES = {
   "terracotta": dict(bg="#F3E9DC", a="#C8553D", b="#F2D0A4", c="#2D6A4F", ink="#2B2118", accent="#C8553D"),
@@ -109,7 +139,8 @@ STYLES = {
   "rose": dict(bg="#FBE8EA", a="#E8A0A8", b="#FFFFFF", c="#B5485A", ink="#3A1F25", accent="#B5485A"),
 }
 ARTS = {"cart": CART, "mixer": MIXER, "mitt": MITT, "blanket": BLANKET, "desk": DESK, "thermo": THERMO, "spinner": SPINNER, "cover": COVER,
-        "shield": SHIELD, "frother": FROTHER, "sinkrack": SINKRACK, "mugwarm": MUGWARM, "lids": LIDS}
+        "shield": SHIELD, "frother": FROTHER, "sinkrack": SINKRACK, "mugwarm": MUGWARM, "lids": LIDS,
+        "wine": WINE, "necklight": NECKLIGHT, "turntable": TURNTABLE, "shredder": SHREDDER}
 # pins.json: [{"file","art":"cart|mixer|mitt|blanket|desk|thermo|spinner|cover","style":"terracotta|mint|lavender|rose","kicker","title","sub"}]
 PINS = []
 for p in json.load(open(sys.argv[1])):
