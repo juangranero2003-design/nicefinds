@@ -4,3 +4,8 @@ pouring-shield.jpg y stretch-lids.jpg: rechazadas en el 3.er intento (2026-11-05
 Se dejan en esta carpeta (la web no la muestra) para que la Action no genere más intentos.
 Esperan la decisión de Juan: no volver a revisarlas ni borrarlas en la tarea diaria.
 Mientras tanto, esos productos solo están en Pinterest con su pin de dibujo.
+
+pastry-beater.jpg y herb-scissors.jpg: rechazadas en el 3.er intento (2026-11-07).
+- pastry-beater: el modelo dibuja un batidor de globo (whisk) o un marco cuadrado, no el batidor plano de hojas curvas para masa; además frascos con etiquetas/texto al fondo.
+- herb-scissors: en los intentos salieron tijeras comunes de 2 hojas (con una mano) o con una sola hoja múltiple y paquete con texto; en el 3.º los bloques de hojas son romos y pegados al plástico, no se ven como las 5 hojas filosas reales.
+Se dejan en esta carpeta para que la Action no genere más intentos. Esperan la decisión de Juan.
