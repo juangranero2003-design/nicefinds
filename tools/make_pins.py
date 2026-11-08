@@ -159,6 +159,34 @@ DESKPAD = """<svg viewBox="0 0 320 320" width="430"><g stroke="{ink}" stroke-wid
 <rect x="110" y="195" width="120" height="35" rx="8" fill="{b}"/><ellipse cx="258" cy="215" rx="13" ry="18" fill="{b}"/></g>
 <g fill="{a}" stroke="{ink}" stroke-width="6"><path d="M30 120 h40 v30 h-40 z"/><path d="M70 125 q15 0 15 12 q0 12 -15 12" fill="none"/></g></svg>"""
 
+HOLDERS = """<svg viewBox="0 0 320 320" width="430"><g stroke="{ink}" stroke-width="10" stroke-linejoin="round" stroke-linecap="round">
+<rect x="20" y="20" width="280" height="290" rx="14" fill="{b}"/>
+<rect x="40" y="50" width="50" height="26" rx="8" fill="{a}"/><rect x="135" y="50" width="50" height="26" rx="8" fill="{a}"/><rect x="230" y="50" width="50" height="26" rx="8" fill="{a}"/>
+<line x1="65" y1="76" x2="65" y2="115"/><path d="M65 115 L35 150 Q35 240 65 260 Q95 240 95 150 Z" fill="{c}"/><path d="M65 130 L50 160 Q52 215 65 235 Q78 215 80 160 Z" fill="{b}"/>
+<line x1="160" y1="76" x2="160" y2="120"/><path d="M160 120 Q120 150 150 190 Q175 225 145 265" fill="none"/>
+<line x1="255" y1="76" x2="255" y2="115"/><path d="M255 115 Q215 180 255 270 Q295 180 255 115 Z" fill="none"/><path d="M255 115 Q235 190 255 270" fill="none" stroke-width="6"/><path d="M255 115 Q275 190 255 270" fill="none" stroke-width="6"/></g></svg>"""
+
+HANDWARM = """<svg viewBox="0 0 320 320" width="430"><g stroke="{ink}" stroke-width="10" stroke-linejoin="round" stroke-linecap="round">
+<rect x="45" y="70" width="110" height="170" rx="48" fill="{a}"/><rect x="165" y="70" width="110" height="170" rx="48" fill="{a}"/>
+<line x1="160" y1="85" x2="160" y2="225" stroke="{c}" stroke-dasharray="6 14"/></g>
+<g fill="{c}" stroke="{ink}" stroke-width="5"><circle cx="85" cy="200" r="8"/><circle cx="100" cy="200" r="8"/><circle cx="115" cy="200" r="8"/></g>
+<g fill="none" stroke="{ink}" stroke-width="7" stroke-linecap="round"><path d="M110 50 q14 -18 0 -36"/><path d="M160 50 q14 -18 0 -36"/><path d="M210 50 q14 -18 0 -36"/></g>
+<g fill="{b}" stroke="{ink}" stroke-width="6"><path d="M290 250 l8 17 19 3 -14 13 4 19 -17 -9 -17 9 4 -19 -14 -13 19 -3z"/></g></svg>"""
+
+SCALE = """<svg viewBox="0 0 320 320" width="430"><g stroke="{ink}" stroke-width="10" stroke-linejoin="round" stroke-linecap="round">
+<path d="M30 230 L60 150 L260 150 L290 230 Z" fill="{b}"/><path d="M30 230 L290 230 L290 262 Q290 275 277 275 L43 275 Q30 275 30 262 Z" fill="{a}"/>
+<rect x="115" y="238" width="90" height="28" rx="5" fill="{bg}"/><circle cx="70" cy="252" r="8" fill="{ink}"/><circle cx="250" cy="252" r="8" fill="{ink}"/>
+<path d="M95 175 Q160 120 225 175 Z" fill="{c}"/></g>
+<g fill="{c}" stroke="{ink}" stroke-width="6"><circle cx="130" cy="95" r="22"/><circle cx="185" cy="100" r="18"/></g>
+<g fill="{ink}"><rect x="128" y="247" width="64" height="10" rx="3"/></g></svg>"""
+
+CANRACK = """<svg viewBox="0 0 320 320" width="430"><g stroke="{ink}" stroke-width="10" stroke-linejoin="round" stroke-linecap="round">
+<path d="M40 40 L40 300 M280 40 L280 300" fill="none"/>
+<path d="M40 70 L280 100 M40 130 L280 100 M40 160 L280 190 M40 220 L280 190 M40 250 L280 280" fill="none"/>
+<g fill="{a}"><rect x="70" y="40" width="44" height="40" rx="6" transform="rotate(7 92 60)"/><rect x="190" y="55" width="44" height="40" rx="6" transform="rotate(7 212 75)"/>
+<rect x="190" y="138" width="44" height="40" rx="6" transform="rotate(-7 212 158)"/><rect x="70" y="190" width="44" height="40" rx="6" transform="rotate(7 92 210)"/><rect x="150" y="205" width="44" height="40" rx="6" transform="rotate(7 172 225)"/></g></g>
+<g fill="{c}"><rect x="76" y="54" width="32" height="10" transform="rotate(7 92 60)"/><rect x="196" y="69" width="32" height="10" transform="rotate(7 212 75)"/><rect x="196" y="152" width="32" height="10" transform="rotate(-7 212 158)"/><rect x="76" y="204" width="32" height="10" transform="rotate(7 92 210)"/><rect x="156" y="219" width="32" height="10" transform="rotate(7 172 225)"/></g></svg>"""
+
 import json, sys
 STYLES = {
   "terracotta": dict(bg="#F3E9DC", a="#C8553D", b="#F2D0A4", c="#2D6A4F", ink="#2B2118", accent="#C8553D"),
@@ -169,7 +197,8 @@ STYLES = {
 ARTS = {"cart": CART, "mixer": MIXER, "mitt": MITT, "blanket": BLANKET, "desk": DESK, "thermo": THERMO, "spinner": SPINNER, "cover": COVER,
         "shield": SHIELD, "frother": FROTHER, "sinkrack": SINKRACK, "mugwarm": MUGWARM, "lids": LIDS,
         "wine": WINE, "necklight": NECKLIGHT, "turntable": TURNTABLE, "shredder": SHREDDER,
-        "pastry": PASTRY, "candlelamp": CANDLELAMP, "herbscissors": HERBSCISSORS, "deskpad": DESKPAD}
+        "pastry": PASTRY, "candlelamp": CANDLELAMP, "herbscissors": HERBSCISSORS, "deskpad": DESKPAD,
+        "holders": HOLDERS, "handwarm": HANDWARM, "scale": SCALE, "canrack": CANRACK}
 # pins.json: [{"file","art":"cart|mixer|mitt|blanket|desk|thermo|spinner|cover","style":"terracotta|mint|lavender|rose","kicker","title","sub"}]
 PINS = []
 for p in json.load(open(sys.argv[1])):
